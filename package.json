@@ -2,10 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Form generator library",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "vitest run",
-    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test-coverage": "vitest run --coverage",
     "lint": "oxlint && oxfmt --ignore-path=.oxfmtignore --check",
@@ -32,11 +31,12 @@
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
   },
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "files": [
-    "dist"
+    "src"
   ],
   "engines": {
     "node": ">=21"
-  }
+  },
+  "exports": "./src/index.ts"
 }

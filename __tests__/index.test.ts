@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "vitest";
-import HexletCode from "../src/index.js";
+import HexletCode from "@hexlet/code";
 
 const getFixture = (name: string): string =>
   readFileSync(new URL(`../__fixtures__/${name}`, import.meta.url), "utf-8").trim();
