@@ -45,20 +45,25 @@ const template = { name: "rob", job: "hexlet", gender: "m" };
 const form = HexletCode.formFor(template, { url: "/users" }, (f) => {
   f.input("name", { class: "user-input" });
   f.input("job", { as: "textarea", rows: 50 });
+  f.submit("Wow");
 });
 
 console.log(form);
 // <form action="/users" method="post">
+//   <label for="name">Name</label>
 //   <input name="name" type="text" value="rob" class="user-input">
+//   <label for="job">Job</label>
 //   <textarea cols="20" rows="50" name="job">hexlet</textarea>
+//   <input type="submit" value="Wow">
 // </form>
 ```
 
 - `formFor(template, options, callback)` — возвращает HTML формы строкой.
   `options.url` задаёт `action` (по умолчанию `#`), `options.method` — метод (по умолчанию `post`).
-- `f.input(name, options)` — добавляет поле со значением из `template`.
+- `f.input(name, options)` — добавляет поле со значением из `template` и `<label>` к нему.
   `as: "textarea"` создаёт `<textarea>` (по умолчанию `cols="20" rows="40"`).
   Остальные опции становятся атрибутами поля.
+- `f.submit(text)` — добавляет кнопку отправки (по умолчанию с текстом `Save`).
 - Если поля нет в `template`, выбрасывается ошибка `Field '<name>' does not exist in the template.`
 
 Переносы строк в выводе выше добавлены для читаемости: библиотека возвращает HTML одной строкой.

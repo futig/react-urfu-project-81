@@ -50,6 +50,24 @@ test("overrides default textarea size", () => {
   expect(form).toBe(getFixture("form-with-custom-textarea.html"));
 });
 
+test("adds submit button with default text", () => {
+  const form = HexletCode.formFor(template, { method: "post" }, (f) => {
+    f.input("name");
+    f.input("job", { as: "textarea" });
+    f.submit();
+  });
+  expect(form).toBe(getFixture("form-with-submit.html"));
+});
+
+test("adds submit button with custom text", () => {
+  const form = HexletCode.formFor(template, { method: "post" }, (f) => {
+    f.input("name");
+    f.input("job", { as: "textarea" });
+    f.submit("Wow");
+  });
+  expect(form).toBe(getFixture("form-with-custom-submit.html"));
+});
+
 test("throws when field does not exist in template", () => {
   expect(() =>
     HexletCode.formFor(template, { url: "/users" }, (f) => {
@@ -63,6 +81,6 @@ test("throws when field does not exist in template", () => {
 test("renders empty value for null field", () => {
   const form = HexletCode.formFor({ name: null }, {}, (f) => f.input("name"));
   expect(form).toBe(
-    '<form action="#" method="post"><input name="name" type="text" value=""></form>',
+    '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value=""></form>',
   );
 });

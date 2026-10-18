@@ -1,13 +1,34 @@
-import Tag, { type Attributes } from "./Tag.js";
+import type { Attributes } from "./Tag.js";
 
 export type Template = Record<string, unknown>;
 
 export type InputOptions = Attributes & { as?: "input" | "textarea" };
 
-const textareaDefaults = { cols: 20, rows: 40 };
+export interface TextField {
+  type: "input" | "textarea";
+  name: string;
+  label: string;
+  value: string;
+  attributes: Attributes;
+}
+
+export interface SubmitField {
+  type: "submit";
+  value: string;
+}
+
+export type Field = TextField | SubmitField;
+
+export interface Form {
+  action: string;
+  method: string;
+  fields: Field[];
+}
+
+const capitalize = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
 export default class FormBuilder {
-  private readonly fields: Tag[] = [];
+  private readonly fields: Field[] = [];
 
   constructor(private readonly template: Template) {}
 
@@ -17,17 +38,21 @@ export default class FormBuilder {
     }
 
     const { as = "input", ...attributes } = options;
-    const value = String(this.template[name] ?? "");
 
-    if (as === "textarea") {
-      this.fields.push(new Tag("textarea", { ...textareaDefaults, ...attributes, name }, value));
-      return;
-    }
-
-    this.fields.push(new Tag("input", { name, type: "text", value, ...attributes }));
+    this.fields.push({
+      type: as,
+      name,
+      label: capitalize(name),
+      value: String(this.template[name] ?? ""),
+      attributes,
+    });
   }
 
-  toString(): string {
-    return this.fields.join("");
+  submit(value = "Save"): void {
+    this.fields.push({ type: "submit", value });
+  }
+
+  build(action: string, method: string): Form {
+    return { action, method, fields: [...this.fields] };
   }
 }

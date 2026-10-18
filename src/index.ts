@@ -1,5 +1,5 @@
 import FormBuilder, { type Template } from "./FormBuilder.js";
-import Tag from "./Tag.js";
+import renderHtml from "./renderers/html.js";
 
 export type { InputOptions, Template } from "./FormBuilder.js";
 
@@ -13,10 +13,10 @@ export type FormCallback = (form: FormBuilder) => void;
 export default class HexletCode {
   static formFor(template: Template, options: FormOptions, callback: FormCallback): string {
     const { url = "#", method = "post" } = options;
-    const form = new FormBuilder(template);
+    const builder = new FormBuilder(template);
 
-    callback(form);
+    callback(builder);
 
-    return new Tag("form", { action: url, method }, form.toString()).toString();
+    return renderHtml(builder.build(url, method));
   }
 }
