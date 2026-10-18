@@ -11,3 +11,16 @@ test.each([
 ])("%s", (tag, expected) => {
   expect(tag.toString()).toBe(expected);
 });
+
+test("keeps attributes order and converts numbers to strings", () => {
+  const tag = new Tag("textarea", { cols: 20, rows: 40, name: "job" }, "hexlet");
+  expect(tag.toString()).toBe('<textarea cols="20" rows="40" name="job">hexlet</textarea>');
+});
+
+test("ignores body for single tags", () => {
+  expect(new Tag("br", {}, "text").toString()).toBe("<br>");
+});
+
+test("converts to string implicitly", () => {
+  expect(`${new Tag("hr")}`).toBe("<hr>");
+});
