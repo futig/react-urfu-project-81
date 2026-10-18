@@ -2,12 +2,18 @@ import type { Attributes } from "./Tag.js";
 
 export type Template = Record<string, unknown>;
 
-export type InputOptions = Attributes & { as?: "input" | "textarea" };
+export interface InputOptions {
+  as?: "input" | "textarea";
+  label?: string;
+  labelHtml?: Attributes;
+  [attribute: string]: string | number | Attributes | undefined;
+}
 
 export interface TextField {
   type: "input" | "textarea";
   name: string;
   label: string;
+  labelAttributes: Attributes;
   value: string;
   attributes: Attributes;
 }
@@ -37,14 +43,15 @@ export default class FormBuilder {
       throw new Error(`Field '${name}' does not exist in the template.`);
     }
 
-    const { as = "input", ...attributes } = options;
+    const { as = "input", label = capitalize(name), labelHtml = {}, ...attributes } = options;
 
     this.fields.push({
       type: as,
       name,
-      label: capitalize(name),
+      label,
+      labelAttributes: labelHtml,
       value: String(this.template[name] ?? ""),
-      attributes,
+      attributes: attributes as Attributes,
     });
   }
 

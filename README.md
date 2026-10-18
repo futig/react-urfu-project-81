@@ -49,7 +49,7 @@ const form = HexletCode.formFor(template, { url: "/users" }, (f) => {
 });
 
 console.log(form);
-// <form action="/users" method="post">
+// <form method="post" action="/users">
 //   <label for="name">Name</label>
 //   <input name="name" type="text" value="rob" class="user-input">
 //   <label for="job">Job</label>
@@ -62,6 +62,8 @@ console.log(form);
   `options.url` задаёт `action` (по умолчанию `#`), `options.method` — метод (по умолчанию `post`).
 - `f.input(name, options)` — добавляет поле со значением из `template` и `<label>` к нему.
   `as: "textarea"` создаёт `<textarea>` (по умолчанию `cols="20" rows="40"`).
+  `label` задаёт текст `<label>` (по умолчанию имя поля с заглавной буквы),
+  `labelHtml` — атрибуты `<label>`, например `{ class: "form-label" }`.
   Остальные опции становятся атрибутами поля.
 - `f.submit(text)` — добавляет кнопку отправки (по умолчанию с текстом `Save`).
 - Если поля нет в `template`, выбрасывается ошибка `Field '<name>' does not exist in the template.`

@@ -9,17 +9,17 @@ const template = { name: "rob", job: "hexlet", gender: "m" };
 
 test("generates empty form with default attributes", () => {
   const form = HexletCode.formFor(template, {}, () => {});
-  expect(form).toBe('<form action="#" method="post"></form>');
+  expect(form).toBe('<form method="post" action="#"></form>');
 });
 
 test("uses url as form action", () => {
   const form = HexletCode.formFor(template, { url: "/users" }, () => {});
-  expect(form).toBe('<form action="/users" method="post"></form>');
+  expect(form).toBe('<form method="post" action="/users"></form>');
 });
 
 test("uses passed method", () => {
   const form = HexletCode.formFor(template, { method: "get" }, () => {});
-  expect(form).toBe('<form action="#" method="get"></form>');
+  expect(form).toBe('<form method="get" action="#"></form>');
 });
 
 test("generates input and textarea", () => {
@@ -68,6 +68,14 @@ test("adds submit button with custom text", () => {
   expect(form).toBe(getFixture("form-with-custom-submit.html"));
 });
 
+test("uses label text and attributes from options", () => {
+  const form = HexletCode.formFor(template, {}, (f) => {
+    f.input("name", { label: "User", labelHtml: { class: "form-label", id: "name-label" } });
+    f.submit("Ok");
+  });
+  expect(form).toBe(getFixture("form-with-label-options.html"));
+});
+
 test("throws when field does not exist in template", () => {
   expect(() =>
     HexletCode.formFor(template, { url: "/users" }, (f) => {
@@ -81,6 +89,6 @@ test("throws when field does not exist in template", () => {
 test("renders empty value for null field", () => {
   const form = HexletCode.formFor({ name: null }, {}, (f) => f.input("name"));
   expect(form).toBe(
-    '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value=""></form>',
+    '<form method="post" action="#"><label for="name">Name</label><input name="name" type="text" value=""></form>',
   );
 });
