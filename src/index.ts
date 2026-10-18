@@ -1,19 +1,22 @@
+import FormBuilder, { type Template } from "./FormBuilder.js";
 import Tag from "./Tag.js";
 
-export type Template = Record<string, unknown>;
+export type { InputOptions, Template } from "./FormBuilder.js";
 
 export interface FormOptions {
   url?: string;
   method?: string;
 }
 
-// Поля формы появятся в следующих шагах, тогда колбэк получит построитель формы
-export type FormCallback = (form: unknown) => void;
+export type FormCallback = (form: FormBuilder) => void;
 
 export default class HexletCode {
-  static formFor(_template: Template, options: FormOptions, _callback: FormCallback): string {
+  static formFor(template: Template, options: FormOptions, callback: FormCallback): string {
     const { url = "#", method = "post" } = options;
+    const form = new FormBuilder(template);
 
-    return new Tag("form", { action: url, method }).toString();
+    callback(form);
+
+    return new Tag("form", { action: url, method }, form.toString()).toString();
   }
 }
