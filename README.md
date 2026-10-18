@@ -9,7 +9,9 @@
 
 ## Стек
 
-- JavaScript
+- TypeScript
+- Vitest
+- Oxlint, Oxfmt
 
 ## Установка
 
@@ -18,6 +20,7 @@
 ```bash
 git clone https://github.com/futig/react-urfu-project-81.git
 cd react-urfu-project-81
+make install
 ```
 
 ## Использование

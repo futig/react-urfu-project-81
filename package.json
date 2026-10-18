@@ -1,0 +1,42 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Form generator library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "vitest run",
+    "build": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test-coverage": "vitest run --coverage",
+    "lint": "oxlint && oxfmt --ignore-path=.oxfmtignore --check",
+    "lint-fix": "oxfmt --ignore-path=.oxfmtignore && oxlint --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futig/react-urfu-project-81.git"
+  },
+  "keywords": [],
+  "author": "futig",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/futig/react-urfu-project-81/issues"
+  },
+  "homepage": "https://github.com/futig/react-urfu-project-81#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "oxfmt": "^0.73.0",
+    "oxlint": "^1.88.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=21"
+  }
+}
